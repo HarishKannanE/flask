@@ -10,8 +10,8 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'cd flask/examples/tutorial'
                 sh 'ls -l'
+                //sh 'cd flask/examples/tutorial'
                 //sh 'python3 -m venv .venv'
                 //sh '. .venv/bin/activate'
                 //sh 'pip install -e ../..'
