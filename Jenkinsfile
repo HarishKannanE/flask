@@ -14,7 +14,7 @@ pipeline {
                 sh 'cd examples/tutorial'
                 sh 'python3 -m venv .venv'
                 sh '. .venv/bin/activate'
-                sh 'pip install -e ../..'
+                //sh 'pip install -e ../..'
                 sh 'pip install -e .'
             }
         }
