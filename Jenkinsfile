@@ -1,6 +1,12 @@
 pipeline {
     
     agent any
+
+    environment {
+        VENV_PATH = 'venv'
+        FLASK_APP = 'flaskr'
+        WORKDIR = 'example/tutorial'
+    }
     
     stages {
         stage('Clone repo') {
@@ -10,19 +16,27 @@ pipeline {
         }
         stage('Build') {
             steps {
-                //sh 'ls -l'
-                sh 'cd examples/tutorial'
-                sh 'python3 -m venv .venv'
-                sh '. .venv/bin/activate'
-                //sh 'pip install -e ../..'
-                sh 'pip install -e .'
+                dir("${WORKDIR}") {
+                    sh '''
+                        python3 -m venv ${VENV_PATH}
+                        . ${VENV_PATH}/bin/activate
+                        pip install -e ../..
+                        pip install -e .
+                    '''
+                }
             }
         }
         stage('Run') {
             steps {
-                sh 'flask --app flaskr init-db'
-                sh 'flask --app flaskr run --debug'
+                dir("${WORKDIR}") {
+                    sh '''
+                        . ${VENV_PATH}/bin/activate
+                        flask --app ${FLASK_APP} init-db
+                        flask --app ${FLASK_APP} run --debug
+                    '''
+                } 
             }
         }
     }
+    
 }
