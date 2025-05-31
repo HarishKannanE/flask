@@ -20,7 +20,7 @@ pipeline {
                     sh '''
                         python3 -m venv ${VENV_PATH}
                         . ${VENV_PATH}/bin/activate
-                        pip install -e .
+                        pip install .
                     '''
                 }
             }
@@ -30,6 +30,8 @@ pipeline {
                 dir("${WORKDIR}") {
                     sh '''
                         . ${VENV_PATH}/bin/activate
+                        export PYTHONPATH=$PWD/examples/tutorial
+                        cd examples/tutorial
                         flask --app ${FLASK_APP} init-db
                         flask --app ${FLASK_APP} run --debug
                     '''
