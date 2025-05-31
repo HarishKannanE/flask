@@ -3,9 +3,7 @@ pipeline {
     agent any
 
     environment {
-        VENV_PATH = 'venv'
-        FLASK_APP = 'flaskr'
-        WORKDIR = 'example/tutorial'
+        WORKDIR = 'examples/tutorial'
     }
     
     stages {
@@ -18,8 +16,8 @@ pipeline {
             steps {
                 dir("${WORKDIR}") {
                     sh '''
-                        python3 -m venv ${VENV_PATH}
-                        . ${VENV_PATH}/bin/activate
+                        python3 -m venv venv
+                        . venv/bin/activate
                         pip install .
                     '''
                 }
@@ -29,11 +27,9 @@ pipeline {
             steps {
                 dir("${WORKDIR}") {
                     sh '''
-                        . ${VENV_PATH}/bin/activate
-                        export PYTHONPATH=$PWD/examples/tutorial
-                        cd examples/tutorial
-                        flask --app ${FLASK_APP} init-db
-                        flask --app ${FLASK_APP} run --debug
+                        . venv/bin/activate
+                        flask --app fleskr init-db
+                        flask --app fleskr run --debug
                     '''
                 } 
             }
