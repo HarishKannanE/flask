@@ -20,7 +20,6 @@ pipeline {
                     sh '''
                         python3 -m venv ${VENV_PATH}
                         . ${VENV_PATH}/bin/activate
-                        pip install -e ../..
                         pip install -e .
                     '''
                 }
@@ -38,5 +37,5 @@ pipeline {
             }
         }
     }
-    
+
 }
