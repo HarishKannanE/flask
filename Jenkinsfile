@@ -28,8 +28,8 @@ pipeline {
                 dir("${WORKDIR}") {
                     sh '''
                         . venv/bin/activate
-                        flask --app fleskr init-db
-                        flask --app fleskr run --debug
+                        flask --app flaskr init-db
+                        flask --app flaskr run --debug
                     '''
                 } 
             }
